@@ -1,0 +1,5 @@
+<h1>Vorhandene Zeichen </h1>
+
+<% @all_codes.each do |char| %>
+  <a href="<%= "/svg/#{CGI.escape(char)}" %>"><%= char %></a>
+<% end %>

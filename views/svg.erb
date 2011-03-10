@@ -1,0 +1,10 @@
+<h1>SVG-Inline</h1>
+<h2><%= File.basename(@filename) %></h2>
+<%= @svg_code %>
+<textarea rows="30" cols="80">
+<%= @svg_raw %>
+</textarea>
+<% @versions.times do |i| %>
+  <a href="<%="/svg/#{CGI.escape(params[:char])}/#{i}" %>">Version <%= i %></a>
+<% end %>
+
