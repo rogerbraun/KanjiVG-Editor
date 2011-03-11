@@ -10,6 +10,14 @@ set :kanjis, Kanji.load_kanjis(GIT_DIR)
 set :repo, @repo
 
 get "/" do
+  erb :home
+end
+
+get "/svg" do
+  redirect to "/svg/#{CGI.escape(params[:char])}/0"
+end
+
+get "/index" do
   @all_codes = settings.kanjis.keys
   erb :index
 end
@@ -22,6 +30,7 @@ get "/svg/:char/:version" do
   if settings.kanjis[params[:char]] then 
     @kanji = settings.kanjis[params[:char]]
   end
+  return "No such Character" unless @kanji
   erb :svg
 end
 
