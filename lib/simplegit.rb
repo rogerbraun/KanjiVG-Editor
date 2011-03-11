@@ -8,8 +8,9 @@ class SimpleGit
     ?
   end
 
-  def initialize(dir, url = nil)
+  def initialize(dir, url = nil, user = nil)
     @dir = dir
+    @user = user
     if not Dir.exists?(File.join(dir, ".git")) and url then
       self.clone(url)
     end
@@ -29,12 +30,7 @@ class SimpleGit
   end
 
   def commit_all(message)
-    `#{preambel} commit -a -m "#{message.gsub('"','\"') }"`
-  end
-  
-  def commit(*files, message)
-    files.flatten!
-    `#{preambel} commit #{files.join(" ")} -m "#{message.gsub('"','\"') }"`
+    `#{preambel} commit -a -m "#{message.gsub('"','\"') }" #{@user ? "--author=\"#{@user}\"" : ""}`
   end
 
 end
