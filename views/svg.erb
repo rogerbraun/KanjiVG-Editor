@@ -4,6 +4,7 @@
   <%= @kanji.svg_display(params[:version].to_i) %>
 </div>
 <button onclick='$("#svg").html($("#code").val())'>Refresh</button>
+<button onclick='$("#svg").html($("#code").val().replace("width=\"109\"", "width=\"400\"").replace("height=\"109\"", "height=\"400\""))'>Refresh (Resized)</button>
 <form action="<%= request.url %>" method="post">
 <textarea id="code" name="code" rows="30" cols="80">
 <%= @kanji.svg(params[:version].to_i) %>
