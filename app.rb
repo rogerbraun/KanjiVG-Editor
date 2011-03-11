@@ -23,7 +23,7 @@ get "/index" do
 end
 
 get "/svg/:char" do
-  redirect "/svg/#{CGI.escape(params[:char])}/0"
+  redirect to "/svg/#{CGI.escape(params[:char])}/0"
 end
 
 get "/svg/:char/:version" do
