@@ -31,5 +31,10 @@ class SimpleGit
   def commit_all(message)
     `#{preambel} commit -a -m "#{message.gsub('"','\"') }"`
   end
+  
+  def commit(*files, message)
+    files.flatten!
+    `#{preambel} commit #{files.join(" ")} -m "#{message.gsub('"','\"') }"`
+  end
 
 end

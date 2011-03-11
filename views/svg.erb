@@ -1,9 +1,13 @@
 <h1>SVG-Inline</h1>
 <h2><%= File.basename(@filename) %></h2>
 <%= @svg_code %>
-<textarea rows="30" cols="80">
+<form action="<%= request.url %>" method="post">
+<textarea name="code" rows="30" cols="80">
 <%= @svg_raw %>
-</textarea>
+</textarea> <br />
+<input name="message" />
+<button>Submit</button>
+</form>
 <% @versions.times do |i| %>
   <a href="<%="/svg/#{CGI.escape(params[:char])}/#{i}" %>">Version <%= i %></a>
 <% end %>
