@@ -18,7 +18,7 @@ get "/svg" do
 end
 
 get "/index" do
-  @all_codes = settings.kanjis.keys
+  @all_codes = settings.kanjis.keys.sort
   erb :index
 end
 

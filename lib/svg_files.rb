@@ -8,7 +8,7 @@ class Kanji
   attr_reader :char, :dir, :versions
   
   def self.load_kanjis(dir)
-    Dir.glob(File.join(dir,"SVG", "*.svg")).map{|file| File.basename(file)[0..3]}.map{|codepoint| [codepoint.to_i(16)].pack("U")}.uniq.sort.map{|char| Kanji.new(char,dir)}.inject({}){|r, kanji| r[kanji.char] = kanji; r} 
+    Dir.glob(File.join(dir,"SVG", "*.svg")).map{|file| File.basename(file)[0..3]}.map{|codepoint| [codepoint.to_i(16)].pack("U")}.uniq.map{|char| Kanji.new(char,dir)}.inject({}){|r, kanji| r[kanji.char] = kanji; r} 
   end
 
   def initialize(char, dir)
