@@ -6,11 +6,11 @@ require "sinatra"
 require "erb"
 require "cgi"
 
-set :svg_files, SVG_files.new(GIT_DIR)
+set :kanjis, Kanji.load_kanjis(GIT_DIR)
 set :repo, @repo
 
 get "/" do
-  @all_codes = settings.svg_files.keys
+  @all_codes = settings.kanjis.keys
   erb :index
 end
 
@@ -19,19 +19,16 @@ get "/svg/:char" do
 end
 
 get "/svg/:char/:version" do
-  if settings.svg_files.exists?(params[:char]) then 
-    @svg_code = settings.svg_files.get_code(params[:char], params[:version].to_i)
-    @svg_raw= settings.svg_files.get_raw(params[:char], params[:version].to_i)
-    @filename = settings.svg_files.get_filename(params[:char], params[:version].to_i)
-    @versions = settings.svg_files.versions(params[:char])
+  if settings.kanjis[params[:char]] then 
+    @kanji = settings.kanjis[params[:char]]
   end
   erb :svg
 end
 
 post "/svg/:char/:version" do
-  if settings.svg_files.exists?(params[:char]) then 
+  if settings.kanjis[params[:char]] then 
 
-    @filename = settings.svg_files.get_filename(params[:char], params[:version].to_i)
+    @filename = settings.kanjis[params[:char]].name(params[:version].to_i)
 
     open(@filename,"w") do |f|
       f.write(params[:code])

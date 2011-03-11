@@ -1,14 +1,20 @@
 <h1>SVG-Inline</h1>
-<h2><%= File.basename(@filename) %></h2>
-<%= @svg_code %>
+<h2><%= File.basename(@kanji.name(params[:version].to_i)) %></h2>
+<div id="svg">
+  <%= @kanji.svg_display(params[:version].to_i) %>
+</div>
+<button onclick='$("#svg").html($("#code").val())'>Refresh</button>
 <form action="<%= request.url %>" method="post">
-<textarea name="code" rows="30" cols="80">
-<%= @svg_raw %>
+<textarea id="code" name="code" rows="30" cols="80">
+<%= @kanji.svg(params[:version].to_i) %>
+</textarea> <br />
+<textarea id="xml" name="xml" rows="30" cols="80">
+<%= @kanji.xml(params[:version].to_i) %>
 </textarea> <br />
 <input name="message" />
 <button>Submit</button>
 </form>
-<% @versions.times do |i| %>
+<% @kanji.versions.times do |i| %>
   <a href="<%="/svg/#{CGI.escape(params[:char])}/#{i}" %>">Version <%= i %></a>
 <% end %>
 
