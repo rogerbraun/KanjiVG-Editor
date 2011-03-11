@@ -1,7 +1,7 @@
 require "./lib/simplegit.rb"
+require "./lib/svg_files.rb"
 require "./config.rb"
 require "./initialize.rb"
-require "./svg_files.rb"
 require "sinatra"
 require "erb"
 require "cgi"
