@@ -1,11 +1,10 @@
-
 class Kanji
 # This class represents the on-disk Kanji and gives easy access
 # to the different versions of the xml and svg code.
 # It assumes that all SVG files are in #{repo}/SVG and have equi-
 # valent XML files in #{repo}/XML
 #
-  attr_reader :char, :dir, :versions
+  attr_reader :char, :dir
   
   def self.load_kanjis(dir)
     Dir.glob(File.join(dir,"SVG", "*.svg")).map{|file| File.basename(file)[0..3]}.map{|codepoint| [codepoint.to_i(16)].pack("U")}.uniq.map{|char| Kanji.new(char,dir)}.inject({}){|r, kanji| r[kanji.char] = kanji; r} 
@@ -18,7 +17,9 @@ class Kanji
   end
 
   def read
-    @files = Dir.glob(File.join(dir, "SVG", "#{@char.unpack("U").first.to_s(16)}*.svg"))
+    num = @char.unpack("U").first.to_s(16)
+    num = "00" + num if num.size == 2
+    @files = Dir.glob(File.join(dir, "SVG", "#{num}*.svg"))
   end
 
   def versions
