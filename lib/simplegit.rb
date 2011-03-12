@@ -11,7 +11,7 @@ class SimpleGit
   def initialize(dir, url = nil, user = nil)
     @dir = dir
     @user = user
-    if not Dir.exists?(File.join(dir, ".git")) and url then
+    if not File.exists?(File.join(dir, ".git")) and url then
       self.clone(url)
     end
   end

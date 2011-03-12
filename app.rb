@@ -34,6 +34,11 @@ get "/svg/:char/:version" do
   erb :svg
 end
 
+get "/git/log" do
+  @log = settings.repo.log.gsub("\n","<br />")
+  erb :gitstatus
+end
+
 post "/svg/:char/:version" do
   if settings.kanjis[params[:char]] then 
 
@@ -41,6 +46,12 @@ post "/svg/:char/:version" do
 
     open(@filename,"w") do |f|
       f.write(params[:code])
+    end
+    xml_file = @filename.gsub("SVG","XML").gsub("svg","xml")
+    if File.exists?(xml_file) 
+      open(xml_file, "w") do |f|
+        f.write(params[:xml])
+      end
     end
     msg = params[:message].empty? ? "Changed #{params[:char]}" : params[:message]
     settings.repo.commit_all(msg)

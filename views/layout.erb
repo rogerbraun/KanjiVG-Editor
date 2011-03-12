@@ -6,6 +6,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script>
   </head>
   <body>
+    <nav>
+      <a href="<%= url "/index" %>">Index</a>
+      <a href="<%= url "/" %>">Search</a>
+      <a href="<%= url "/git/log" %>">Git Log</a>
+    </nav>
     <%= yield %>
   </body>
 
