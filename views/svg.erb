@@ -1,4 +1,4 @@
-<h1>SVG-Inline</h1>
+<h1>Code for <%= params[:char] %></h1>
 <nav>
   <% @kanji.versions.times do |i| %>
     <a href="<%=url "/svg/#{CGI.escape(params[:char])}/#{i}" %>">Version <%= i %></a>
@@ -11,7 +11,9 @@
 <button onclick='$("#svg").html($("#code").val())'>Refresh</button>
 <button onclick='$("#svg").html($("#code").val().replace("width=\"109\"", "width=\"400\"").replace("height=\"109\"", "height=\"400\""))'>Refresh (Resized)</button>
 <form action="<%= url request.url %>" method="post">
+  <h2>SVG</h2>
   <textarea id="code" name="code" rows="30" cols="80"><%= @kanji.svg(params[:version].to_i) %></textarea>
+  <h2>XML</h2>
   <textarea id="xml" name="xml" rows="30" cols="80"><%= @kanji.xml(params[:version].to_i) %></textarea><br />
   <label for="message">Commit message:</label>
   <input name="message" /><br />
